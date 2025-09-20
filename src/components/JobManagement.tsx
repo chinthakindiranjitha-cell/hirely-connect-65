@@ -130,7 +130,8 @@ export const JobManagement: React.FC<JobManagementProps> = ({
     }
   };
 
-  const userJobs = jobs.filter(job => job.company); // In a real app, filter by user's company
+  // Only show jobs that the recruiter created (managedJobs), not API jobs
+  const userJobs = jobs.filter(job => job.id.startsWith('managed-') || job.company === 'TechCorp Inc.' || job.company === 'InnovateLabs');
 
   return (
     <div className="space-y-6">

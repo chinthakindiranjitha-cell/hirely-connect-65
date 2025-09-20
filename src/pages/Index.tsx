@@ -91,7 +91,7 @@ const JobPortalContent: React.FC = () => {
   const handleAddJob = (jobData: Omit<Job, 'id' | 'postedDate'>) => {
     const newJob: Job = {
       ...jobData,
-      id: Math.random().toString(36).substr(2, 9),
+      id: 'managed-' + Math.random().toString(36).substr(2, 9),
       postedDate: new Date().toISOString()
     };
     setManagedJobs(prev => [newJob, ...prev]);
@@ -149,7 +149,7 @@ const JobPortalContent: React.FC = () => {
             
             <TabsContent value="manage" className="mt-6">
               <JobManagement
-                jobs={[...jobs, ...managedJobs]}
+                jobs={managedJobs}
                 onAddJob={handleAddJob}
                 onUpdateJob={handleUpdateJob}
                 onDeleteJob={handleDeleteJob}
