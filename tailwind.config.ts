@@ -22,7 +22,15 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
+        jobhub: {
+          blue: "hsl(var(--jobhub-blue))",
+          "blue-light": "hsl(var(--jobhub-blue-light))",
+          "text-muted": "hsl(var(--jobhub-text-muted))",
+          "border-light": "hsl(var(--jobhub-border-light))",
+        },
+        salary: "hsl(var(--salary-color))",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

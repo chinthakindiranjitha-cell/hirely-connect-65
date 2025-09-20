@@ -1,73 +1,144 @@
-# Welcome to your Lovable project
+# JobHub - Job Portal Application
 
-## Project info
+A comprehensive job portal application built with React, TypeScript, and Tailwind CSS that connects job seekers with recruiters.
 
-**URL**: https://lovable.dev/projects/ab19b237-1697-480b-93c3-2430faf407c1
+## Features
 
-## How can I edit this code?
+### 🔍 Job Search & Filtering
+- **Search**: Search jobs by title, company, or skills
+- **Filter**: Filter by job type, location, and experience level
+- **Sort**: Sort jobs by date posted, salary, or title
+- **Real-time filtering** with job count indicators
 
-There are several ways of editing your application.
+### 👥 User Roles
+- **Job Seekers**: Browse and apply for jobs
+- **Recruiters**: Post, edit, and manage job listings
 
-**Use Lovable**
+### 💼 Job Management
+- **CRUD Operations**: Create, read, update, and delete job postings
+- **Rich Job Details**: Comprehensive job descriptions, requirements, benefits, and skills
+- **Application Tracking**: Track job applications and status
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ab19b237-1697-480b-93c3-2430faf407c1) and start prompting.
+### 🎨 Modern UI/UX
+- **Responsive Design**: Works seamlessly on desktop and mobile
+- **Clean Interface**: Inspired by modern job portal designs
+- **Consistent Design System**: Custom theme with JobHub branding
+- **Interactive Components**: Hover effects, transitions, and loading states
 
-Changes made via Lovable will be committed automatically to this repo.
+## Technical Stack
 
-**Use your preferred IDE**
+- **Frontend**: React 18 with TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Shadcn/ui component library
+- **State Management**: React Context API
+- **Data Fetching**: Custom hooks with React Query
+- **Build Tool**: Vite
+- **Icons**: Lucide React
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## API Integration
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The application fetches job data from: `https://jsonfakery.com/jobs`
 
-Follow these steps:
+Mock data is also provided to ensure the application works even if the external API is unavailable.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Getting Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd jobhub
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:8080`
+
+## User Guide
+
+### For Job Seekers
+1. **Sign In**: Click "Sign In" and select "Job Seeker"
+2. **Browse Jobs**: Use filters and search to find relevant positions
+3. **View Details**: Click on any job card to see full details
+4. **Apply**: Click "Apply for this Position" to submit your application
+
+### For Recruiters
+1. **Sign In**: Click "Sign In" and select "Recruiter"
+2. **Manage Jobs**: Use the "Manage Jobs" tab to create and edit listings
+3. **Post Jobs**: Click "Post New Job" to create a new job listing
+4. **Edit/Delete**: Use the edit and delete buttons on existing jobs
+
+## Architecture
+
+### Component Structure
+```
+src/
+├── components/
+│   ├── ui/              # Reusable UI components
+│   ├── AuthDialog.tsx   # Authentication modal
+│   ├── FilterSidebar.tsx # Job filtering sidebar
+│   ├── Header.tsx       # Main navigation header
+│   ├── JobCard.tsx      # Individual job listing card
+│   ├── JobDetail.tsx    # Detailed job view
+│   └── JobManagement.tsx # Recruiter job management
+├── contexts/
+│   └── AuthContext.tsx  # Authentication state management
+├── hooks/
+│   ├── useJobs.ts       # Job data fetching and management
+│   └── use-toast.ts     # Toast notifications
+├── lib/
+│   └── jobUtils.ts      # Utility functions for job data
+├── types/
+│   └── job.ts           # TypeScript type definitions
+└── pages/
+    └── Index.tsx        # Main application page
 ```
 
-**Edit a file directly in GitHub**
+### Design System
+- **Colors**: Custom JobHub blue theme with semantic color tokens
+- **Typography**: System fonts with consistent sizing and weights
+- **Spacing**: Consistent spacing scale using Tailwind utilities
+- **Components**: Custom variants for buttons and other UI elements
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Features Implementation
 
-**Use GitHub Codespaces**
+✅ **Add, update, delete, and sort job postings** - Full CRUD operations for recruiters
+✅ **View job descriptions in detail** - Comprehensive job detail view
+✅ **User roles (Recruiter / Job Seeker)** - Role-based authentication and features
+✅ **Job application system** - Job seekers can apply for positions
+✅ **Search, Filter, and Sort** - Multiple ways to find relevant jobs
+✅ **Real-time job counts** - Filter indicators show available job counts
+✅ **Responsive design** - Works on all device sizes
+✅ **Modern UI/UX** - Clean, professional interface
+✅ **API integration** - Fetches data from provided endpoint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Bonus Features
 
-## What technologies are used for this project?
+- **Application tracking** - Users can see which jobs they've applied to
+- **Toast notifications** - User feedback for all actions
+- **Loading states** - Proper loading indicators
+- **Error handling** - Graceful error handling and retry mechanisms
+- **Accessibility** - Semantic HTML and keyboard navigation
+- **SEO optimized** - Proper meta tags and structured content
 
-This project is built with:
+## Future Enhancements
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- User profiles and resume upload
+- Advanced search with salary range filtering
+- Email notifications for new jobs
+- Company profiles and ratings
+- Job alerts and saved searches
+- Application status tracking
+- Interview scheduling
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/ab19b237-1697-480b-93c3-2430faf407c1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is built for demonstration purposes as part of a job portal application assessment.
