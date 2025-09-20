@@ -7,12 +7,13 @@ import { FilterSidebar } from '@/components/FilterSidebar';
 import { JobCard } from '@/components/JobCard';
 import { JobDetail } from '@/components/JobDetail';
 import { JobManagement } from '@/components/JobManagement';
+import { AppliedJobs } from '@/components/AppliedJobs';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useJobs } from '@/hooks/useJobs';
 import { Job, JobFilters, JobApplication } from '@/types/job';
 import { calculateJobCounts } from '@/lib/jobUtils';
 import { useToast } from '@/hooks/use-toast';
-import { SlidersHorizontal, Briefcase } from 'lucide-react';
+import { SlidersHorizontal, Briefcase, FileText } from 'lucide-react';
 
 const JobPortalContent: React.FC = () => {
   const { jobs, loading, error, refetch, filterJobs, sortJobs } = useJobs();
@@ -207,62 +208,84 @@ const JobPortalContent: React.FC = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex gap-6">
-            <FilterSidebar
-              filters={filters}
-              onFiltersChange={setFilters}
-              jobCounts={jobCounts}
-            />
+          <Tabs defaultValue="browse" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="browse">
+                <Briefcase className="h-4 w-4 mr-2" />
+                Browse Jobs
+              </TabsTrigger>
+              <TabsTrigger value="applications">
+                <FileText className="h-4 w-4 mr-2" />
+                My Applications
+              </TabsTrigger>
+            </TabsList>
             
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl font-bold mb-2">Latest Job Openings</h2>
-                  <p className="text-jobhub-text-muted">{filteredJobs.length} jobs found</p>
-                </div>
+            <TabsContent value="browse" className="mt-6">
+              <div className="flex gap-6">
+                <FilterSidebar
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                  jobCounts={jobCounts}
+                />
                 
-                <Select value={sortBy} onValueChange={(value) => setSortBy(value as any)}>
-                  <SelectTrigger className="w-48">
-                    <SelectValue placeholder="Sort by" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="date">Latest First</SelectItem>
-                    <SelectItem value="salary">Highest Salary</SelectItem>
-                    <SelectItem value="title">Title A-Z</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h2 className="text-2xl font-bold mb-2">Latest Job Openings</h2>
+                      <p className="text-jobhub-text-muted">{filteredJobs.length} jobs found</p>
+                    </div>
+                    
+                    <Select value={sortBy} onValueChange={(value) => setSortBy(value as any)}>
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Sort by" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="date">Latest First</SelectItem>
+                        <SelectItem value="salary">Highest Salary</SelectItem>
+                        <SelectItem value="title">Title A-Z</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-              <div className="grid gap-4">
-                {filteredJobs.map((job) => (
-                  <JobCard
-                    key={job.id}
-                    job={job}
-                    isSelected={selectedJob?.id === job.id}
-                    onClick={() => setSelectedJob(job)}
-                    onApply={handleApplyToJob}
-                    canApply={isAuthenticated && user?.role === 'jobseeker'}
-                  />
-                ))}
-              </div>
+                  <div className="grid gap-4">
+                    {filteredJobs.map((job) => (
+                      <JobCard
+                        key={job.id}
+                        job={job}
+                        isSelected={selectedJob?.id === job.id}
+                        onClick={() => setSelectedJob(job)}
+                        onApply={handleApplyToJob}
+                        canApply={isAuthenticated && user?.role === 'jobseeker'}
+                      />
+                    ))}
+                  </div>
 
-              {filteredJobs.length === 0 && (
-                <div className="text-center py-12">
-                  <Briefcase className="h-12 w-12 mx-auto text-jobhub-text-muted mb-4" />
-                  <h3 className="text-xl font-medium mb-2">No jobs found</h3>
-                  <p className="text-jobhub-text-muted">
-                    Try adjusting your filters or search criteria
-                  </p>
+                  {filteredJobs.length === 0 && (
+                    <div className="text-center py-12">
+                      <Briefcase className="h-12 w-12 mx-auto text-jobhub-text-muted mb-4" />
+                      <h3 className="text-xl font-medium mb-2">No jobs found</h3>
+                      <p className="text-jobhub-text-muted">
+                        Try adjusting your filters or search criteria
+                      </p>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            <JobDetail
-              job={selectedJob}
-              onApply={handleApplyToJob}
-              hasApplied={selectedJob ? hasApplied(selectedJob.id) : false}
-            />
-          </div>
+                <JobDetail
+                  job={selectedJob}
+                  onApply={handleApplyToJob}
+                  hasApplied={selectedJob ? hasApplied(selectedJob.id) : false}
+                />
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="applications" className="mt-6">
+              <AppliedJobs 
+                applications={applications} 
+                jobs={[...jobs, ...managedJobs]} 
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       )}
     </div>
